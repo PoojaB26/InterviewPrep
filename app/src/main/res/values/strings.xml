@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CS Prep</string>
+    <string-array name="branches">
+        <item>Data Structures</item>
+        <item>Algorithms</item>
+        <item>Computer Networks</item>
+        <item>OO Design</item>
+    </string-array>
+</resources>
