@@ -54,13 +54,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Topic topic = new Topic();
-                    topic = postSnapshot.getValue(Topic.class);
-                    Log.e("Get Data", topic.getBranch());
-
-                /*ics topic = dataSnapshot.getValue(Topics.class);
-                Log.d("TOPIC", topic.getTopics().get(0).getBranch());
-                // ...*/
+                    Topic topic = postSnapshot.getValue(Topic.class);
+                    Log.d("Get Data", topic.getBranch());
                 }
             }
 
