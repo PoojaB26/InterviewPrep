@@ -61,4 +61,8 @@ public class Topic {
         this.revisionCount = revisionCount;
     }
 
+    public Topic(){
+
+    }
+
 }

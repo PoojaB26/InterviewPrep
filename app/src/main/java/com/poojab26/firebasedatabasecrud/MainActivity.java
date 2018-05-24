@@ -11,9 +11,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.poojab26.firebasedatabasecrud.Model.Topic;
+import com.poojab26.firebasedatabasecrud.Model.Topics;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,9 +42,36 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 retrieveNewTopic();
                 sendToDatabase(topicsRef);
+                retrieveFromDatabase(topicsRef);
 
             }
         });
+    }
+
+    private void retrieveFromDatabase(final DatabaseReference topicsRef) {
+        ValueEventListener topicListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Topic topic = new Topic();
+                    topic = postSnapshot.getValue(Topic.class);
+                    Log.e("Get Data", topic.getBranch());
+
+                /*ics topic = dataSnapshot.getValue(Topics.class);
+                Log.d("TOPIC", topic.getTopics().get(0).getBranch());
+                // ...*/
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+               databaseError.toException();
+                // ...
+            }
+        };
+        topicsRef.addValueEventListener(topicListener);
     }
 
     private void sendToDatabase(DatabaseReference topicsRef) {
